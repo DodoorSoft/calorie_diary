@@ -1,6 +1,7 @@
 import 'package:calorie_diary/components/top_calendar.dart';
 import 'package:calorie_diary/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,7 +24,17 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              TopCalendar(parentAction: (DateTime date){})
+              TopCalendar(parentAction: (DateTime date){}),
+          SleekCircularSlider(
+            initialValue: 1200,
+              min: 0,
+              max: 99999,
+              appearance: CircularSliderAppearance(
+                spinnerMode: true
+              ),
+              onChange: (double value) {
+                print(value);
+              })
             ],
           ),
         ),),),
