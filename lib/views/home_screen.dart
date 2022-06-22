@@ -1,3 +1,4 @@
+import 'package:calorie_diary/components/top_calendar.dart';
 import 'package:calorie_diary/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +15,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: kLightBackground,
       body:
       SafeArea(child:
-        Padding(padding: EdgeInsets.all(15),
-        ),),
+        Padding(padding: const EdgeInsets.all(15),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TopCalendar(parentAction: (DateTime date){})
+            ],
+          ),
+        ),),),
     );
   }
 }
