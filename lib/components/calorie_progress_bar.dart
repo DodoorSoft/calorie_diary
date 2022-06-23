@@ -16,13 +16,13 @@ class CalorieProgressBar extends StatelessWidget {
       painter: CirclePainter(goalCalories: goalCalories,currentCalories: currentCalories),
       size: const Size(200,200),
       child: SizedBox(
-        height: 190,
-        width: 190,
+        height: 130,
+        width: 130,
         child: Center(child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            Text('$currentCalories / $goalCalories ',style: kSubTitleStyle.copyWith(
+            Text('$goalCalories ',style: kSubTitleStyle.copyWith(
               color: Colors.black,
               fontSize: 20,
               fontWeight: FontWeight.w700

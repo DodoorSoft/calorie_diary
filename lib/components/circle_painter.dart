@@ -12,7 +12,7 @@ class CirclePainter extends CustomPainter {
 
 
   final _paintCircle = Paint()
-    ..color = Colors.blueAccent.withOpacity(.5)
+    ..color = const Color(0xfff94f46).withOpacity(.6)
     ..strokeWidth = 16
     ..strokeCap = StrokeCap.round
 
@@ -20,7 +20,7 @@ class CirclePainter extends CustomPainter {
     ..style = PaintingStyle.stroke;
 
   final _paintProgress = Paint()
-    ..color = Colors.blueAccent
+    ..color = const Color(0xfff94f46)
     ..strokeWidth = 16
     ..strokeCap = StrokeCap.round
 

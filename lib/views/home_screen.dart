@@ -1,5 +1,5 @@
 import 'package:calorie_diary/components/calorie_progress_bar.dart';
-import 'package:calorie_diary/components/custom_circular_progress.dart';
+import 'package:calorie_diary/components/litres_circular_progress.dart';
 import 'package:calorie_diary/components/macros.dart';
 import 'package:calorie_diary/components/top_calendar.dart';
 import 'package:calorie_diary/constants.dart';
@@ -18,6 +18,13 @@ class _HomeScreenState extends State<HomeScreen> {
   int goal = 1400;
   int current = 743;
 
+  int goalCal = 2600;
+  int currentCal = 800;
+
+  double goalLitres = 4;
+  double currentLitres = 1.5;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,21 +38,71 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               TopCalendar(parentAction: (DateTime date){}),
               Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: Card(
-                  color: Colors.white,
-                  child: Row(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xffd6f6fc),
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: const Offset(0, 2), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top:20.0),
-                        child: CalorieProgressBar(goalCalories: 2600,currentCalories: 1300,),
+                      Padding(
+                        padding: const EdgeInsets.only(top:20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                Text('$currentCal kcal',style: kSubTitleStyle.copyWith(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600
+                                ),),
+                                Padding(
+                                  padding: const EdgeInsets.only(top:8.0),
+                                  child: Text('Consumed',style: kSubTitleStyle.copyWith(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500
+                                  ),),
+                                )
+                              ],
+                            ),
+                            CalorieProgressBar(goalCalories: goalCal,currentCalories: currentCal,),
+                            Column(
+                              children: [
+                                Text('${goalCal-currentCal} kcal',style: kSubTitleStyle.copyWith(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600
+                                ),),
+                                Padding(
+                                  padding: const EdgeInsets.only(top:8.0),
+                                  child: Text('Remaining',style: kSubTitleStyle.copyWith(
+                                      color: Colors.black54,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500
+                                  ),),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                      SizedBox(
-                        height: 190,
-                        child: Column(
+                      Padding(
+                        padding: const EdgeInsets.only(top:15.0,bottom: 10),
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: const [
                             Macros(macroType: 'Carbs', macroAmount: 120,boxColor: Colors.blue,),
                             Macros(macroType: 'Protein', macroAmount: 60,boxColor: Colors.red,),
@@ -53,69 +110,78 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       )
+
                     ],
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Card(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xffffeccc),
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: const Offset(0, 2), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top:20.0,bottom: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Row(
+                            Column(
                               children: [
-                                Text('Steps',style: kSubTitleStyle.copyWith(color: Colors.black,fontSize: 20),),
+                                Text('${currentLitres.toStringAsFixed(1)} litres',style: kSubTitleStyle.copyWith(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600
+                                ),),
                                 Padding(
-                                  padding: const EdgeInsets.only(left:10),
-                                  child: Image.asset('assets/sneakers.png',scale: 1.7,),
-                                ),
-
-
+                                  padding: const EdgeInsets.only(top:8.0),
+                                  child: Text('Drank',style: kSubTitleStyle.copyWith(
+                                      color: Colors.black54,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500
+                                  ),),
+                                )
                               ],
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(top:10.0,bottom: 20),
-                              child: Center(child: CustomCircularProgress(goal: 1400, current: 743,)),
-                            ),
-                            Center(child: Text('$current steps',style: kSubTitleStyle.copyWith(color: Colors.black,fontSize: 20),))
-
-
+                            LitresCircularProgress(goal: goalLitres,current: currentLitres,),
+                            Column(
+                              children: [
+                                Text('${(goalLitres-currentLitres).toStringAsFixed(1)} litres',style: kSubTitleStyle.copyWith(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600
+                                ),),
+                                Padding(
+                                  padding: const EdgeInsets.only(top:8.0),
+                                  child: Text('Remaining',style: kSubTitleStyle.copyWith(
+                                      color: Colors.black54,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500
+                                  ),),
+                                )
+                              ],
+                            )
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Card(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
 
-                            Row(
-                              children: [
-                                Text('Water',style: kSubTitleStyle.copyWith(color: Colors.black),),
-                                Padding(
-                                  padding: const EdgeInsets.only(left:10),
-                                  child: Image.asset('assets/sneakers.png',scale: 2,),
-                                ),
-                              ],
-                            ),
 
-                          ],
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
-                ],
-              )
+                ),
+              ),
 
 
 

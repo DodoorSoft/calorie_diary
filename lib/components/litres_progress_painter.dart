@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-class ProgressPainter extends CustomPainter {
+class LitresProgressPainter extends CustomPainter {
 
-  late int current;
-  late int goal;
-  ProgressPainter({
+  late double current;
+  late double goal;
+  LitresProgressPainter({
     required this.current, required this.goal
   });
 
@@ -12,6 +12,9 @@ class ProgressPainter extends CustomPainter {
   double getRatio(){
     return current/goal;
   }
+
+
+
 
   final _paintCircle = Paint()
     ..color = Colors.blueAccent.withOpacity(.5)
@@ -26,22 +29,19 @@ class ProgressPainter extends CustomPainter {
     ..strokeWidth = 16
     ..strokeCap = StrokeCap.round
 
-  // Use [PaintingStyle.fill] if you want the circle to be filled.
-    ..style = PaintingStyle.stroke;
+    ..style = PaintingStyle.fill;
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawArc(
 
-      Rect.fromCenter(
+      Rect.fromCircle(
         center: Offset(size.height / 2, size.width / 2),
-        height: size.height,
-        width: size.width,
+        radius: size.width/2
       ),
 
-      math.pi/2, //start angle
-      getRatio() <= 1 ? math.pi*2*getRatio() :
-      math.pi*2, //finish angle
+      0.5*math.pi - math.pi*getRatio(), //start angle
+      math.pi*getRatio()*2, //finish angle
       false,
       _paintProgress,
     );
