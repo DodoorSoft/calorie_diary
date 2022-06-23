@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
         unselectedItemColor: Colors.grey,
         selectedFontSize: 14,
         iconSize: 24,
-        backgroundColor: kLightBackground,
+        backgroundColor: Colors.white.withOpacity(.8),
         showUnselectedLabels: true,
         currentIndex: _selectedIndex,
         onTap: (int index) {

@@ -13,7 +13,7 @@ class CustomCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: cardColor.withOpacity(.4),
+        color: cardColor,
       ),
       child: cardChild,
     );
