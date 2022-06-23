@@ -1,4 +1,5 @@
 import 'package:calorie_diary/components/calorie_progress_bar.dart';
+import 'package:calorie_diary/components/custom_card.dart';
 import 'package:calorie_diary/components/macros.dart';
 import 'package:calorie_diary/components/top_calendar.dart';
 import 'package:calorie_diary/constants.dart';
@@ -29,26 +30,32 @@ class _HomeScreenState extends State<HomeScreen> {
               TopCalendar(parentAction: (DateTime date){}),
               Padding(
                 padding: const EdgeInsets.only(left:10.0,right: 10,top: 40),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const CalorieProgressBar(goalCalories: 2600,currentCalories: 1300,),
-                    SizedBox(
-                      height: 190,
-
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Macros(macroType: 'Carbs', macroAmount: 120,boxColor: Colors.blue,),
-                          Macros(macroType: 'Protein', macroAmount: 60,boxColor: Colors.red,),
-                          Macros(macroType: 'Fat', macroAmount: 30,boxColor: Colors.amber,)
-                        ],
+                child: CustomCard(
+                  cardChild: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top:20.0),
+                        child: CalorieProgressBar(goalCalories: 2600,currentCalories: 1300,),
                       ),
-                    )
-                  ],
+                      SizedBox(
+                        height: 190,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Macros(macroType: 'Carbs', macroAmount: 120,boxColor: Colors.blue,),
+                            Macros(macroType: 'Protein', macroAmount: 60,boxColor: Colors.red,),
+                            Macros(macroType: 'Fat', macroAmount: 30,boxColor: Colors.amber,)
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  cardColor: Colors.blue,
                 ),
-              )
+              ),
+
             ],
           ),
         ),),),

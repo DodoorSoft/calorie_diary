@@ -30,7 +30,7 @@ class Macros extends StatelessWidget {
                 ),
               ),
             ),
-            Text(macroType,style: kSubTitleStyle.copyWith(color: Colors.grey)),
+            Text(macroType,style: kSubTitleStyle.copyWith(color: Colors.black45)),
           ],
         ),
         Text('${macroAmount}g',style: kSubTitleStyle.copyWith(color: Colors.black,fontSize: 20))
