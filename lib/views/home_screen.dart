@@ -1,7 +1,7 @@
 import 'package:calorie_diary/components/calorie_progress_bar.dart';
 import 'package:calorie_diary/components/litres_circular_progress.dart';
 import 'package:calorie_diary/components/macros.dart';
-import 'package:calorie_diary/components/top_calendar.dart';
+import 'package:calorie_diary/components/steps_progress_bar.dart';
 import 'package:calorie_diary/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +25,10 @@ class _HomeScreenState extends State<HomeScreen> {
   double currentLitres = 1.5;
 
 
+  int stepsTaken = 1200;
+  int goalSteps = 1600;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,18 +40,18 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TopCalendar(parentAction: (DateTime date){}),
+              //TopCalendar(parentAction: (DateTime date){}),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xffd6f6fc),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 2,
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 0.5,
+                        blurRadius: 0.5,
                         offset: const Offset(0, 2), // changes position of shadow
                       ),
                     ],
@@ -119,13 +123,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xffffeccc),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 2,
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 0.5,
+                        blurRadius: 0.5,
                         offset: const Offset(0, 2), // changes position of shadow
                       ),
                     ],
@@ -159,6 +163,73 @@ class _HomeScreenState extends State<HomeScreen> {
                             Column(
                               children: [
                                 Text('${(goalLitres-currentLitres).toStringAsFixed(1)} litres',style: kSubTitleStyle.copyWith(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600
+                                ),),
+                                Padding(
+                                  padding: const EdgeInsets.only(top:8.0),
+                                  child: Text('Remaining',style: kSubTitleStyle.copyWith(
+                                      color: Colors.black54,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500
+                                  ),),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+
+
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 0.5,
+                        blurRadius: 0.5,
+                        offset: const Offset(0, 2), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top:20.0,bottom: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                Text('$stepsTaken steps',style: kSubTitleStyle.copyWith(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600
+                                ),),
+                                Padding(
+                                  padding: const EdgeInsets.only(top:8.0),
+                                  child: Text('Taken',style: kSubTitleStyle.copyWith(
+                                      color: Colors.black54,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500
+                                  ),),
+                                )
+                              ],
+                            ),
+                            StepsProgressBar(goal: goalSteps,current: stepsTaken,),
+                            Column(
+                              children: [
+                                Text('${(goalSteps-stepsTaken)} steps',style: kSubTitleStyle.copyWith(
                                     color: Colors.black,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600
