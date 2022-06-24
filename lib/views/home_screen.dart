@@ -4,6 +4,7 @@ import 'package:calorie_diary/components/macros.dart';
 import 'package:calorie_diary/components/steps_progress_bar.dart';
 import 'package:calorie_diary/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -40,7 +41,17 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //TopCalendar(parentAction: (DateTime date){}),
+              Row(
+                children:const [
+                  CircleAvatar(radius: 30,
+                  backgroundColor: kLightBackground,
+                  backgroundImage: AssetImage('assets/user.png'),),
+                  Padding(
+                    padding: EdgeInsets.only(left:12.0),
+                    child: Text('Hello, Tolga!',style: kTitleStyle,),
+                  )
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Container(
