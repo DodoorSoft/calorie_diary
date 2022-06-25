@@ -3,8 +3,11 @@ import 'package:calorie_diary/components/litres_circular_progress.dart';
 import 'package:calorie_diary/components/macros.dart';
 import 'package:calorie_diary/components/steps_progress_bar.dart';
 import 'package:calorie_diary/constants.dart';
+import 'package:calorie_diary/controllers/user_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../models/class_models/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    CustomUser _user = UserController.getUser(context);
     return Scaffold(
       backgroundColor: kLightBackground,
       body:
@@ -42,13 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children:const [
+                children: [
                   CircleAvatar(radius: 30,
                   backgroundColor: kLightBackground,
-                  backgroundImage: AssetImage('assets/user.png'),),
+                  backgroundImage: NetworkImage(_user.photoUrl!),),
                   Padding(
                     padding: EdgeInsets.only(left:12.0),
-                    child: Text('Hello, Tolga!',style: kTitleStyle,),
+                    child: Text('Hello, ${_user.displayName!.split(' ')[0]}',style: kTitleStyle,),
                   )
                 ],
               ),

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>168541970397-jijuk3i670m30hs78lo7kv7jclq64k1p.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.168541970397-jijuk3i670m30hs78lo7kv7jclq64k1p</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>168541970397-4cop4amgv44n2ehmt9vfa7p404p7c80q.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA-VSu3xDQ7UD1QUGjPNymDEjiGZG8ihp0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>168541970397</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.dodoorsoft.caloriediary.calorieDiary</string>
+	<key>PROJECT_ID</key>
+	<string>calorie-diary-9736f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>calorie-diary-9736f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:168541970397:ios:d0e4e6d9b512df88f8a034</string>
+</dict>
+</plist>
