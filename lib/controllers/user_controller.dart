@@ -1,10 +1,10 @@
-
-
 import 'package:calorie_diary/providers/sign_in_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/class_data/user_data.dart';
 import '../models/class_models/user_model.dart';
+
+
 
 class UserController{
 

@@ -17,18 +17,24 @@ class SignInProvider{
 
     final googleAuth = await googleUser.authentication;
 
-    final credentials = GoogleAuthProvider.credential(
+    OAuthCredential credentials = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
 
 
     
-    await FirebaseAuth.instance.signInWithCredential(credentials);
+    UserCredential userCredentials = await FirebaseAuth.instance.signInWithCredential(credentials);
 
-    return CustomUser(displayName: googleUser.displayName, id: googleUser.id, email: googleUser.email,
+    return CustomUser(displayName: googleUser.displayName, id: userCredentials.user!.uid, email: googleUser.email,
     photoUrl: googleUser.photoUrl,isSignedIn: true);
 
+  }
+
+
+   Future googleLogOut()async{
+    final googleSignIn = GoogleSignIn();
+    googleSignIn.disconnect();
   }
 
 

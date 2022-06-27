@@ -3,6 +3,8 @@ import 'package:calorie_diary/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'diary_screen.dart';
+
 
 class HomeView extends StatefulWidget {
   @override
@@ -13,7 +15,7 @@ class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
   final List<Widget> _views = [
     const HomeScreen(),
-    Container(),
+    const DiaryScreen(),
     Container(),
     Container(),
     Container()
