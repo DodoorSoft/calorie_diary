@@ -10,10 +10,14 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin{
 
 
   late PageController _controller;
+
+  late AnimationController _animationController;
+
+  late Animation<double> _animation;
 
 
   int _selectedPage = 0;
@@ -29,6 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
     // TODO: implement initState
     super.initState();
     _controller = PageController();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 700),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeIn,
+    );
+    _animationController.forward();
   }
 
 
@@ -37,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // TODO: implement dispose
     super.dispose();
     _controller.dispose();
+    _animationController.dispose();
   }
 
 
@@ -57,7 +71,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPageChanged: (int page){
                     setState((){
                       _selectedPage = page;
+                      _animationController.reset();
+                      _animationController.forward();
                     });
+
                   },
                   children: [
                     Image.asset('assets/eating.png'),
@@ -71,35 +88,50 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                          color: _selectedPage == 0 ? kLightGreen: Colors.grey
+                    child: GestureDetector(
+                      onTap: (){
+                        _controller.jumpToPage(0);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                            color: _selectedPage == 0 ? kLightGreen: Colors.grey
+                        ),
+                        height: 12,
+                        width: 40,
                       ),
-                      height: 12,
-                      width: 40,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: _selectedPage == 1 ? kLightGreen: Colors.grey
+                    child: GestureDetector(
+                      onTap: (){
+                        _controller.jumpToPage(1);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: _selectedPage == 1 ? kLightGreen: Colors.grey
+                        ),
+                        height: 12,
+                        width: 40,
                       ),
-                      height: 12,
-                      width: 40,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: _selectedPage == 2 ? kLightGreen: Colors.grey
+                    child: GestureDetector(
+                      onTap: (){
+                        _controller.jumpToPage(2);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: _selectedPage == 2 ? kLightGreen: Colors.grey
+                        ),
+                        height: 12,
+                        width: 40,
                       ),
-                      height: 12,
-                      width: 40,
                     ),
                   ),
                 ],
@@ -108,9 +140,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     const Text('Track your',style: kTitleStyle,),
-                    AnimatedOpacity(
-                      duration: const Duration(seconds: 1),
-                        opacity: 1,
+                    FadeTransition(
+                        opacity: _animation,
                         child: Text(texts[_selectedPage],style: kTitleStyle,)),
 
                   ],
