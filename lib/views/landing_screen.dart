@@ -1,5 +1,7 @@
 
+import 'package:calorie_diary/components/custom_button.dart';
 import 'package:calorie_diary/constants.dart';
+import 'package:calorie_diary/views/get_started_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -147,20 +149,18 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                   ],
                 ),
               ),
-              Column(children: [ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: kLightGreen,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)
-                  ),
-                  fixedSize: Size(MediaQuery.of(context).size.width*.85,55)
-              ),
-              onPressed: (){}, child: Text('Get Started',
-                style: kSubTitleStyle.copyWith(
-                color: Colors.white,
-                fontSize: 18
-                ),)
-              ),
+              Column(children: [
+                CustomButton(color: kLightGreen, onPressed: (){
+
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const GetStartedScreen()
+                    ));
+
+                }, buttonChild: Text('Get Started',
+                  style: kSubTitleStyle.copyWith(
+                      color: Colors.white,
+                      fontSize: 18
+                  ),)),
                 TextButton(
               onPressed: (){},
               child:
@@ -176,6 +176,3 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     );
   }
 }
-/*
-
-*/
