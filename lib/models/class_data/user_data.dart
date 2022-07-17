@@ -17,11 +17,22 @@ class UserData extends ChangeNotifier{
   void setInitialUserInfo(String name, int weight, int height,DateTime birthday,int gender){
     _user.displayName = name;
     _user.currentWeightInKg = weight;
-    _user.currentHeightInCm = height;
+    _user.heightInCm = height;
     _user.birthday = birthday;
     _user.gender = gender;
     notifyListeners();
+  }
+
+  void finalLogin(CustomUser user){
+    _user.photoUrl = user.photoUrl;
+    _user.email = user.email;
+    _user.isSignedIn = user.isSignedIn;
+    notifyListeners();
 
   }
+
+  Map<String,dynamic> toJSON(){
+    return _user.toJSON();
+}
 
 }

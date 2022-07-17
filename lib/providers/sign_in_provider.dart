@@ -24,7 +24,7 @@ class SignInProvider{
 
 
 
-    return CustomUser(displayName: googleUser.displayName,  email: googleUser.email,
+    return CustomUser(email: googleUser.email,
     photoUrl: googleUser.photoUrl,isSignedIn: true);
 
   }

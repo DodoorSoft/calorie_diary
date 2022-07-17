@@ -1,3 +1,4 @@
+import 'package:calorie_diary/views/get_started_screen.dart';
 import 'package:calorie_diary/views/home_screen.dart';
 import 'package:calorie_diary/views/landing_screen.dart';
 import 'package:calorie_diary/views/login_screen.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
           'home_view':(context)=> HomeView(),
           'login_screen': (context) => const LoginScreen()
         },
-        home: const LoginScreen()
+        home: const GetStartedScreen()
       ),
     );
   }

@@ -8,12 +8,7 @@ import '../models/class_models/user_model.dart';
 
 class UserController{
 
-  static Future<bool> googleLogin(BuildContext context)async{
-    CustomUser user = await SignInProvider().googleLogin();
-    Provider.of<UserData>(context,listen:false).login(user);
-    return user.isSignedIn;
 
-  }
 
   static CustomUser getUser(BuildContext context){
     return Provider.of<UserData>(context,listen: false).user;
@@ -27,6 +22,10 @@ class UserController{
         birthday,
         gender
     );
+  }
+
+  static Map<String,dynamic> toJSON(BuildContext context){
+    return Provider.of<UserData>(context,listen: false).toJSON();
   }
 
 

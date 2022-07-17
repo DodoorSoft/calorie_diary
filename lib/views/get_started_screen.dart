@@ -342,7 +342,7 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
                   else{
                     UserController.setInitialUserInfo(context, _name, _weight, _height, _birthday!, _gender!);
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil('home_view', (Route<dynamic> route) => false);
+                        .pushNamedAndRemoveUntil('login_screen', (Route<dynamic> route) => false);
                   }
 
 

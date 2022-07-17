@@ -6,7 +6,7 @@ class CustomUser{
   bool isSignedIn;
 
   int? currentWeightInKg;
-  int? currentHeightInCm;
+  int? heightInCm;
   DateTime? birthday;
   int? gender;
 
@@ -19,9 +19,22 @@ class CustomUser{
     this.photoUrl,
     this.currentWeightInKg,
     this.birthday,
-    this.currentHeightInCm,
+    this.heightInCm,
     this.gender
 });
+
+  Map<String,dynamic> toJSON(){
+    return {
+      "displayName":displayName,
+      "email":email,
+      "isSignedIn":isSignedIn,
+      "photoUrl":photoUrl,
+      "currentWeightInKg":currentWeightInKg,
+      "heightInCm":heightInCm,
+      "gender":gender
+
+    };
+  }
 
 
 }
