@@ -1,26 +1,26 @@
 
 class CustomUser{
   String? displayName;
-  String? id;
   String? photoUrl;
   String? email;
   bool isSignedIn;
 
-  int? currentKilos;
+  int? currentWeightInKg;
   int? currentHeightInCm;
-  int? age;
+  DateTime? birthday;
+  int? gender;
 
 
 
   CustomUser({
     this.displayName,
-    this.id,
     this.email,
-    this.photoUrl,
     this.isSignedIn = false,
-    this.currentKilos,
-    this.age,
-    this.currentHeightInCm
+    this.photoUrl,
+    this.currentWeightInKg,
+    this.birthday,
+    this.currentHeightInCm,
+    this.gender
 });
 
 

@@ -3,7 +3,10 @@ import 'package:calorie_diary/components/litres_circular_progress.dart';
 import 'package:calorie_diary/components/macros.dart';
 import 'package:calorie_diary/components/steps_progress_bar.dart';
 import 'package:calorie_diary/constants.dart';
+import 'package:calorie_diary/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
+
+import '../models/class_models/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -31,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    CustomUser user = UserController.getUser(context);
     return Scaffold(
       backgroundColor: kLightBackground,
       body:
@@ -47,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundImage: NetworkImage(''),),
                   Padding(
                     padding: EdgeInsets.only(left:12.0),
-                    child: Text('Hello, Tolga',style: kTitleStyle,),
+                    child: Text("Hello, ${user.displayName!}",style: kTitleStyle,),
                   )
                 ],
               ),

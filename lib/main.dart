@@ -1,5 +1,6 @@
 import 'package:calorie_diary/views/home_screen.dart';
 import 'package:calorie_diary/views/landing_screen.dart';
+import 'package:calorie_diary/views/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:calorie_diary/views/home_view.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ void main() async{
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -25,9 +25,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: {
-          'home_view':(context)=> HomeView()
+          'home_view':(context)=> HomeView(),
+          'login_screen': (context) => const LoginScreen()
         },
-        home: LoginScreen()
+        home: const LoginScreen()
       ),
     );
   }

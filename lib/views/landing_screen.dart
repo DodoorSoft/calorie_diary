@@ -5,14 +5,14 @@ import 'package:calorie_diary/views/get_started_screen.dart';
 import 'package:flutter/material.dart';
 
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LandingScreen extends StatefulWidget {
+  const LandingScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LandingScreen> createState() => _LandingScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin{
+class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin{
 
 
   late PageController _controller;

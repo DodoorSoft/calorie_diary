@@ -23,10 +23,8 @@ class SignInProvider{
     );
 
 
-    
-    UserCredential userCredentials = await FirebaseAuth.instance.signInWithCredential(credentials);
 
-    return CustomUser(displayName: googleUser.displayName, id: userCredentials.user!.uid, email: googleUser.email,
+    return CustomUser(displayName: googleUser.displayName,  email: googleUser.email,
     photoUrl: googleUser.photoUrl,isSignedIn: true);
 
   }
