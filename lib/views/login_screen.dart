@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import 'mail_login_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -36,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: const [
+                    Icon(Icons.person_add_alt_1,color: kLightGreen,size: 40,),
                     Text('Do not stop here',style: kTitleStyle,),
                     Text('Sign up so you can save your account and do not lose any of your progress',style: kSubTitleStyle,
                       textAlign: TextAlign.center,),
@@ -74,7 +77,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     ),
                     ListTile(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const MailLoginScreen()));
+                      },
                       leading: const FaIcon(FontAwesomeIcons.envelope,color: Colors.white,),
                       tileColor: kLightGreen,
                       title: const Text('Sign up with Mail',style: kSubTitleStyle),

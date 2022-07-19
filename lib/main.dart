@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           'home_view':(context)=> HomeView(),
           'login_screen': (context) => const LoginScreen()
         },
-        home: GetStartedScreen()
+        home: LoginScreen()
       ),
     );
   }
