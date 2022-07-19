@@ -14,7 +14,7 @@ class UserController{
     return Provider.of<UserData>(context,listen: false).user;
   }
 
-  static void setInitialUserInfo(BuildContext context,String name,int weight,int height,DateTime birthday,int gender){
+  static void setInitialUserInfo(BuildContext context,String name,double weight,int height,DateTime birthday,int gender){
     return Provider.of<UserData>(context,listen: false).setInitialUserInfo(
         name,
         weight,

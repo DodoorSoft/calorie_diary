@@ -1,11 +1,18 @@
 
+enum SignUpType{
+  google,
+  mail,
+  apple
+}
+
+
 class CustomUser{
   String? displayName;
   String? photoUrl;
   String? email;
   bool isSignedIn;
 
-  int? currentWeightInKg;
+  double? currentWeightInKg;
   int? heightInCm;
   DateTime? birthday;
   int? gender;

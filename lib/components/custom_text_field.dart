@@ -6,24 +6,28 @@ class CustomTextField extends StatelessWidget {
   late TextEditingController controller;
   late FocusNode node;
   late TextInputType keyboardType;
+  String text;
 
-  CustomTextField({Key? key, required this.controller, required this.node, required this.keyboardType}) : super(key: key);
+  CustomTextField({Key? key, required this.controller, required this.node, required this.keyboardType, this.text = ""}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(50),
       child: TextFormField(
+        textAlign: TextAlign.center,
         keyboardType: keyboardType,
-        decoration: const InputDecoration(
-          enabledBorder: UnderlineInputBorder(
+        decoration: InputDecoration(
+          hintText: text,
+
+          enabledBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.black,width: 4)
           ),
-          focusedBorder:UnderlineInputBorder(
+          focusedBorder:const UnderlineInputBorder(
         borderSide: BorderSide(color: Colors.black,width: 4)
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
-          hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+          contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+          hintStyle: const TextStyle(fontSize: 16.0, color: Colors.grey),
         ),
         controller: controller,
         focusNode: node,

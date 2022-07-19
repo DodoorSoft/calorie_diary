@@ -5,6 +5,7 @@ import 'package:calorie_diary/constants.dart';
 import 'package:calorie_diary/controllers/user_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 
 class GetStartedScreen extends StatefulWidget {
@@ -19,13 +20,21 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
 
   late PageController _controller;
 
+
+
   final TextEditingController _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
+  final TextEditingController _inchController = TextEditingController();
+  final FocusNode _inchFocusNode = FocusNode();
+
+
+  int weightType = 0;
+  int heightType = 0;
   int _selectedPage = 0;
 
   late String _name;
-  late int _weight;
+  late double _weight;
   late int _height;
   DateTime? _birthday;
   int? _gender;
@@ -68,7 +77,7 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
         break;
       case 1:
         setState((){
-          _weight = int.parse(_textController.text);
+          _weight = double.parse(_textController.text);
         });
         break;
       case 2:
@@ -87,14 +96,16 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
 
 
 
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _controller = PageController();
-
     _textController.addListener(() {
+      setState((){
+      });
+    });
+    _inchController.addListener(() {
       setState((){});
     });
   }
@@ -106,6 +117,8 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
     _controller.dispose();
     _textController.dispose();
     _focusNode.dispose();
+    _inchController.dispose();
+    _inchFocusNode.dispose();
   }
 
 
@@ -221,17 +234,46 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
                         child: Text('What is your name?',style: kTitleStyle,),
                       ),
                       CustomTextField(controller: _textController, node: _focusNode,
-                        keyboardType: _selectedPage == 0 ? TextInputType.text : TextInputType.number,),],
+                        keyboardType: _selectedPage == 0 ? TextInputType.text : TextInputType.number,text: 'name',),],
                   ),
                     Column(
                       children: [const Text('What is your current weight?',style: kTitleStyle,),
-                        CustomTextField(controller: _textController, node: _focusNode,
-                          keyboardType: TextInputType.number,),],
+                        Column(children: [
+                          CustomTextField(controller: _textController, node: _focusNode,
+                            keyboardType: TextInputType.number,text: weightType == 0 ? 'kg' : 'lbs',),
+                          ToggleSwitch(
+                            activeBgColor: const [kLightGreen],
+                            initialLabelIndex: weightType,
+                            totalSwitches: 2,
+                            labels: const ['Kg','Lbs'],
+                            onToggle: (index) {
+                              setState((){
+                                weightType = index!;
+                              });
+                            },
+                          ),
+                        ],)
+                      ],
                     ),
                     Column(
                       children: [const Text('How tall are you?',style: kTitleStyle,),
-                        CustomTextField(controller: _textController, node: _focusNode,
-                          keyboardType: TextInputType.number,),],
+                        Column(
+                          children: [
+                            CustomTextField(controller: _textController, node: _focusNode,
+                                keyboardType: TextInputType.number,text: "cm",),
+                            ToggleSwitch(
+                              activeBgColor: const [kLightGreen],
+                              initialLabelIndex: heightType,
+                              totalSwitches: 2,
+                              labels: const ['cm','feet'],
+                              onToggle: (index) {
+                                setState((){
+                                  heightType = index!;
+                                });
+                              },
+                            ),
+                          ],
+                        )],
                     ),
                     Column(
                       children: [const Text('What is your sex?',style: kTitleStyle,),
@@ -310,13 +352,12 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
                         Expanded(
                           child: CupertinoDatePicker(
                             minimumDate: DateTime(1912,1,1),
-                            maximumDate: DateTime.now().add(Duration(seconds: 1)),
+                            maximumDate: DateTime.now().add(const Duration(seconds: 1)),
                             mode: CupertinoDatePickerMode.date,
                             onDateTimeChanged: (DateTime date){
                               setState((){
                                 _birthday = date;
                               });
-                              print(date);
                             },
                           ),
                         )],

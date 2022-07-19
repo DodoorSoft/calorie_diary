@@ -48,10 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   CircleAvatar(radius: 30,
                   backgroundColor: kLightBackground,
-                  backgroundImage: NetworkImage(user.photoUrl!),),
+                  backgroundImage: NetworkImage(''),),
                   Padding(
                     padding: EdgeInsets.only(left:12.0),
-                    child: Text("Hello, ${user.displayName!}",style: kTitleStyle,),
+                    child: Text("Hello,",style: kTitleStyle,),
                   )
                 ],
               ),

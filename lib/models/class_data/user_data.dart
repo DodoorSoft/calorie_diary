@@ -14,7 +14,7 @@ class UserData extends ChangeNotifier{
     notifyListeners();
   }
 
-  void setInitialUserInfo(String name, int weight, int height,DateTime birthday,int gender){
+  void setInitialUserInfo(String name, double weight, int height,DateTime birthday,int gender){
     _user.displayName = name;
     _user.currentWeightInKg = weight;
     _user.heightInCm = height;
