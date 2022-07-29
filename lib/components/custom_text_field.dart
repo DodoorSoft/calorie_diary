@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
 
 
-  late TextEditingController controller;
+  TextEditingController? controller;
   late FocusNode node;
   late TextInputType keyboardType;
   String text;
@@ -11,15 +11,22 @@ class CustomTextField extends StatelessWidget {
   bool isObscure;
   TextDirection hintTextDirection;
   EdgeInsets padding;
+  ValueChanged<String>? onChange;
+  String? initialValue;
 
   CustomTextField({Key? key, required this.controller, required this.node, required this.keyboardType, this.text = "",
-  this.hintTextAlign = TextAlign.center,this.isObscure=false,this.hintTextDirection=TextDirection.ltr,this.padding=const EdgeInsets.all(50)}) : super(key: key);
+  this.hintTextAlign = TextAlign.center,this.isObscure=false,this.hintTextDirection=TextDirection.ltr,this.padding=const EdgeInsets.all(50),
+    this.initialValue,
+  this.onChange}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
       child: TextFormField(
+        onChanged: onChange,
+        initialValue: initialValue,
+        onTap: node.requestFocus,
         obscureText: isObscure,
         textAlign: hintTextAlign,
         keyboardType: keyboardType,

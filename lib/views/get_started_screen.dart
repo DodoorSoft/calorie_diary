@@ -20,47 +20,77 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
 
   late PageController _controller;
 
-
-
-  final TextEditingController _textController = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
-
+  final TextEditingController _kgController = TextEditingController();
+  final TextEditingController _lbsController = TextEditingController();
+  final TextEditingController _cmController = TextEditingController();
+  final TextEditingController _feetController = TextEditingController();
   final TextEditingController _inchController = TextEditingController();
-  final FocusNode _inchFocusNode = FocusNode();
+  final FocusNode _nameNode = FocusNode();
+  final FocusNode _kgNode = FocusNode();
+  final FocusNode _lbsNode = FocusNode();
+  final FocusNode _cmNode = FocusNode();
+  final FocusNode _inchNode = FocusNode();
+  final FocusNode _feetNode = FocusNode();
 
 
   int weightType = 0;
   int heightType = 0;
   int _selectedPage = 0;
 
-  late String _name;
+  double convertedInch = 0;
+  double convertedFeet = 0;
+
+  String? _name;
   late double _weight;
   late int _height;
   DateTime? _birthday;
   int? _gender;
 
+  void nextPage(){
+    switch (_selectedPage){
+      case 0:
+        if(_name != null){
+          setState((){
+            _selectedPage++;
+          });
+        }
+        break;
+      case 1:
+        if(_kgController.text.isNotEmpty && _lbsController.text.isNotEmpty){
+          setState((){
+            _weight = double.parse(_kgController.text);
+            _selectedPage++;
+          });
+        }
+        break;
+      case 2:
+        if(_cmController.text.isNotEmpty && _inchController.text.isNotEmpty && _feetController.text.isNotEmpty){
+          setState((){
+            _height = int.parse(_cmController.text);
+            _selectedPage++;
+          });
+        }
+        break;
+
+    }
+    if(_selectedPage < 4){
+      _controller.jumpToPage(_selectedPage);
+      setState((){});
+    }
+    else{
+
+      UserController.setInitialUserInfo(context, _name!, _weight, _height, _birthday!, _gender!);
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('login_screen', (Route<dynamic> route) => false);
+    }
+  }
+
   void onPressedBack(){
     if(_selectedPage>0){
       setState((){
-        switch (_selectedPage){
-          case 3:
-            _textController.text = _height.toString();
-            break;
-          case 2:
-            _textController.text = _weight.toString();
-            break;
-          case 1:
-            _textController.text = _name;
-            break;
-
-        }
-        setState((){
-          _selectedPage -= 1;
-        });
-        _controller.jumpToPage(_selectedPage);
-
+        _selectedPage -= 1;
       });
-      _focusNode.unfocus();
+      _controller.jumpToPage(_selectedPage);
     }
     else{
       Navigator.pop(context);
@@ -68,31 +98,28 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
 
   }
 
-  void updateFields(){
+
+  Color getButtonColor(){
     switch (_selectedPage){
       case 0:
-        setState((){
-          _name = _textController.text;
-        });
+        if(_name != null) return kLightGreen;
         break;
       case 1:
-        setState((){
-          _weight = double.parse(_textController.text);
-        });
+        if(_kgController.text.isNotEmpty || _lbsController.text.isNotEmpty){
+          return kLightGreen;
+        }
         break;
       case 2:
-        setState((){
-          _height = int.parse(_textController.text);
-        });
+        if(_cmController.text.isNotEmpty || (_feetController.text.isNotEmpty && _inchController.text.isNotEmpty)){
+          return kLightGreen;
+        }
         break;
-
     }
-    _textController.clear();
-    _focusNode.unfocus();
-    setState((){
-      _selectedPage++;
-    });
+    return Colors.grey;
+
   }
+
+
 
 
 
@@ -101,13 +128,22 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
     // TODO: implement initState
     super.initState();
     _controller = PageController();
-    _textController.addListener(() {
-      setState((){
-      });
+    _feetController.addListener(() {
+      setState((){});
+    });
+    _lbsController.addListener(() {
+      setState((){});
+    });
+    _kgController.addListener(() {
+      setState((){});
+    });
+    _cmController.addListener(() {
+      setState((){});
     });
     _inchController.addListener(() {
       setState((){});
     });
+
   }
 
   @override
@@ -115,10 +151,6 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
     // TODO: implement dispose
     super.dispose();
     _controller.dispose();
-    _textController.dispose();
-    _focusNode.dispose();
-    _inchController.dispose();
-    _inchFocusNode.dispose();
   }
 
 
@@ -233,23 +265,59 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
                         padding: EdgeInsets.only(top:15,bottom: 1),
                         child: Text('What is your name?',style: kTitleStyle,),
                       ),
-                      CustomTextField(controller: _textController, node: _focusNode,
-                        keyboardType: _selectedPage == 0 ? TextInputType.text : TextInputType.number,text: 'name',),],
+                      CustomTextField(controller: null, node: _nameNode,initialValue: _name,
+                        keyboardType: _selectedPage == 0 ? TextInputType.text : TextInputType.number,text: 'name',
+                      onChange: (String name){
+                        setState((){
+                          _name = name;
+                        });
+                      },),],
                   ),
                     Column(
                       children: [const Text('What is your current weight?',style: kTitleStyle,),
                         Column(children: [
-                          CustomTextField(controller: _textController, node: _focusNode,
-                            keyboardType: TextInputType.number,text: weightType == 0 ? 'kg' : 'lbs',),
+                          weightType == 0 ?CustomTextField(controller: _kgController, node: _kgNode,
+                            keyboardType: TextInputType.number,text: 'kg',
+                          onChange: (String value){
+                            if(_kgController.text.isNotEmpty){
+                              _lbsController.text = ((double.parse(value)*2.2).toStringAsFixed(1));
+                            }
+                            else{
+                              _lbsController.clear();
+                            }
+
+                          },) :
+                          CustomTextField(controller: _lbsController, node: _lbsNode,
+                            keyboardType: TextInputType.number,text: 'lbs',
+                          onChange: (String value){
+                           if(_lbsController.text.isNotEmpty){
+                             _kgController.text = ((double.parse(value)/2.2).toStringAsFixed(1));
+                           }
+                           else{
+                             _kgController.clear();
+                           }
+                          },),
                           ToggleSwitch(
                             activeBgColor: const [kLightGreen],
                             initialLabelIndex: weightType,
                             totalSwitches: 2,
                             labels: const ['Kg','Lbs'],
                             onToggle: (index) {
-                              setState((){
-                                weightType = index!;
-                              });
+                              if(index != weightType){
+                                setState((){
+                                  weightType = index!;
+
+                                });
+                                if(weightType==0){
+                                  _lbsNode.unfocus();
+                                  _kgNode.requestFocus();
+                                }
+                                else{
+                                  _kgNode.unfocus();
+                                  _lbsNode.requestFocus();
+                                }
+                              }
+
                             },
                           ),
                         ],)
@@ -259,17 +327,90 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
                       children: [const Text('How tall are you?',style: kTitleStyle,),
                         Column(
                           children: [
-                            CustomTextField(controller: _textController, node: _focusNode,
-                                keyboardType: TextInputType.number,text: "cm",),
+                            heightType == 0 ? CustomTextField(controller: _cmController, node: _cmNode,
+                                keyboardType: TextInputType.number,text: "cm",onChange: (String value){
+                                if(_cmController.text.isNotEmpty){
+                                  double totalInches = int.parse(_cmController.text)*0.393701;
+
+                                  int feet = totalInches~/12;
+                                  int inches = (totalInches-(feet*12)).toInt();
+
+                                  _feetController.text = feet.toString();
+                                  _inchController.text = inches.toString();
+
+                                }
+                                else{
+                                  _feetController.clear();
+                                  _inchController.clear();
+                                }
+                              },)
+                            : Row(children: [
+                              Expanded(
+                                child: CustomTextField(controller: _feetController, node: _feetNode,
+                                  keyboardType: TextInputType.number,text: "feet",onChange: (String feet){
+                                  if(_feetController.text.isNotEmpty) {
+                                    setState(() {
+                                      convertedFeet =
+                                          int.parse(_feetController.text) *
+                                              30.48;
+                                    });
+                                  }
+                                  else{
+                                    setState((){
+                                      convertedFeet = 0;
+                                    });
+                                  }
+
+                                      double cm = convertedFeet + convertedInch;
+                                  _cmController.text = cm.ceil().toString();
+
+                                  },),
+                              ),  
+                              Expanded(
+                                child: CustomTextField(controller: _inchController, node: _inchNode,
+                                  keyboardType: TextInputType.number,text: "inch",onChange: (String inch){
+                                    if(_inchController.text.isNotEmpty){
+                                      setState((){
+                                        convertedInch = int.parse(_inchController.text)*2.54;
+                                      });}
+                                    else{
+                                      setState((){
+                                        convertedInch = 0;
+                                      });
+                                    }
+
+                                      double cm = convertedFeet + convertedInch;
+                                      _cmController.text = cm.ceil().toString();
+
+
+                                  },),
+                              )
+                            ],),
                             ToggleSwitch(
                               activeBgColor: const [kLightGreen],
                               initialLabelIndex: heightType,
                               totalSwitches: 2,
                               labels: const ['cm','feet'],
                               onToggle: (index) {
-                                setState((){
-                                  heightType = index!;
-                                });
+                                if(index != heightType){
+                                  setState((){
+                                    heightType = index!;
+
+                                  });
+                                  if(heightType==0){
+                                    _inchNode.unfocus();
+                                    _feetNode.unfocus();
+                                    _cmNode.requestFocus();
+                                  }
+                                  else{
+                                    _inchNode.unfocus();
+                                    _feetNode.requestFocus();
+                                    _cmNode.unfocus();
+
+
+                                  }
+                                }
+
                               },
                             ),
                           ],
@@ -371,23 +512,7 @@ class _GetStartedScreenState extends State<GetStartedScreen>{
               ),
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: _selectedPage != 3 ? CustomButton(color: _textController.text.isNotEmpty ||
-                    _birthday!=null ? kLightGreen : Colors.grey, onPressed: (){
-
-                  if(_textController.text.isNotEmpty){
-                    updateFields();
-                  }
-                  if(_selectedPage < 4){
-                    _controller.jumpToPage(_selectedPage);
-                  }
-                  else{
-                    UserController.setInitialUserInfo(context, _name, _weight, _height, _birthday!, _gender!);
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil('login_screen', (Route<dynamic> route) => false);
-                  }
-
-
-                }, buttonChild: Text('Next',
+                child: _selectedPage != 3 ? CustomButton(color:getButtonColor(), onPressed: nextPage, buttonChild: Text('Next',
                   style: kSubTitleStyle.copyWith(
                       color: Colors.white,
                       fontSize: 18
